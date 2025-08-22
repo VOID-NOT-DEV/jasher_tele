@@ -48,16 +48,18 @@ VERCEL_TOKEN = os.getenv("VERCEL_TOKEN")
 
 EMOJI_LIST = ["🔥", "💥", "✨", "🌟", "⚡", "🍀", "🎯", "🎉", "🌈", "💎", "🚀", "💫", "🧲", "🌪️", "🧨"] #ubah aja
 DEPLOY_PATH = "./vercel_temp"
-bl_file = "blacklist.json" #B
-session_file = "userbot1.session" #A sama B sama ini jangan di ubah
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # path folder skrip
+AKSES_FILE = os.path.join(BASE_DIR, "akses.json")      # pastikan sama dengan index.py
+bl_file = os.path.join(BASE_DIR, "blacklist.json")
+session_file = os.path.join(BASE_DIR, "userbot1.session")
 
 def get_akses_list():
     try:
-        with open("akses.json", "r") as f:
+        with open(AKSES_FILE, "r") as f:
             data = json.load(f)
         return list(set(data.get("murid", []) + data.get("partner", []) + data.get("owner", [])))
     except Exception as e:
-        print(f"⚠️ akses.json lokal tidak bisa dibaca: {e}")
+        print(f"⚠️ akses.json tidak bisa dibaca: {e}")
         return []
 
 try:
